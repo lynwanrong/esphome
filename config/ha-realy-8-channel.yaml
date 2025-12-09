@@ -1,0 +1,85 @@
+esphome:
+  name: ha-realy-8-channel
+  friendly_name: HA-Realy-8-Channel
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: 5.4.2
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "4736wQaHqR861N+SH4cfu1iZnZg7wdQnHi5XrR+IEGI="
+
+ota:
+  - platform: esphome
+    password: "b658666dd5a895fb409dccbe42d907d4"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Ha-Realy-8-Channel"
+    password: "uAvICC3ON1lS"
+
+captive_portal:
+
+# Makerfabs Config
+# ethernet:
+#   type: LAN8720
+#   mdc_pin: 23
+#   mdio_pin: 18
+#   clk_mode: GPIO17_OUT
+#   phy_addr: 0
+    
+web_server:
+  port: 80
+
+switch:
+  - platform: gpio
+    pin: 32
+    name: "通道1"
+    inverted: true
+
+  - platform: gpio
+    pin: 33
+    name: "通道2"
+    inverted: true
+
+  - platform: gpio
+    pin: 14
+    name: "通道3"  
+    inverted: true
+
+  - platform: gpio
+    pin: 13
+    name: "通道4"
+    inverted: true
+
+  - platform: gpio
+    pin: 15
+    name: "通道5"
+    inverted: true
+
+  - platform: gpio
+    pin: 4
+    name: "通道6"
+    inverted: true
+
+  - platform: gpio
+    pin: 16
+    name: "通道7"
+    inverted: true
+
+  - platform: gpio
+    pin: 5
+    name: "通道8"
+    inverted: true
+    

@@ -1,0 +1,63 @@
+esphome:
+  name: ai-28-s3-camera
+  friendly_name: ai-28-s3-camera
+
+esp32:
+  board: esp32s3_120_16_8-qio_opi
+  framework:
+    type: esp-idf
+    version: 5.4.2
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+# Enable logging
+logger:
+  level: DEBUG
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "Fn9MkXYOAdXO+5JVXBEl8glOsjHhgyviJBiP/D1sSsc="
+
+ota:
+  - platform: esphome
+    password: "808dcebf08e6d249d866926211e79874"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Ai-28-S3-Camera Fallback Hotspot"
+    password: "4xxhmzsUWdmp"
+
+captive_portal:
+
+web_server:
+  port: 80
+    
+i2c:
+  - id: i2c_bus
+    sda: GPIO39
+    scl: GPIO38
+    # frequency: 100kHz
+
+
+esp32_camera:
+  name: Camera
+  external_clock:
+    pin: GPIO9
+    frequency: 20MHz
+  i2c_id: i2c_bus
+  data_pins: [GPIO7, GPIO5, GPIO4, GPIO6, GPIO16, GPIO8, GPIO3, GPIO46]
+  vsync_pin: GPIO11
+  href_pin: GPIO10
+  pixel_clock_pin: GPIO17
+  reset_pin: GPIO18
+  resolution: 640x480
+  frame_buffer_count: 2
+  max_framerate: 30 fps
+  jpeg_quality: 10

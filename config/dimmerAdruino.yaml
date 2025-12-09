@@ -1,0 +1,64 @@
+esphome:
+  name: dimmeradruino
+  friendly_name: dimmerAdruino
+
+external_components:
+  - source: 
+      type: local
+      path: common_components
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: DEBUG
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "ID95Wb5V982+bpnhQKAgReCRPJOW1v3NB1KdAHoHel8="
+
+ota:
+  - platform: esphome
+    password: "b7e39ba79c1205fafee50d253dbb0054"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "dimmerAdruino Fallback Hotspot"
+    password: "FC0heLveyPgf"
+
+captive_portal:
+
+
+web_server:
+  port: 80
+  
+
+output:
+  - platform: arduino_dimmer
+    id: arduino_dimmer_1
+
+fan:
+  - platform: speed
+    name: "Kitchen Lights"
+    output: arduino_dimmer_1
+    icon: "mdi:lightbulb"
+    
+# light:
+#   - platform: monochromatic
+#     output: arduino_dimmer_1
+#     name: "Kitchen Lights"
+#     gamma_correct: 0
+#     default_transition_length: 
+#       seconds: 2
+
+
+
+    

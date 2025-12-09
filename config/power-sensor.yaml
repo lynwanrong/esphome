@@ -1,0 +1,56 @@
+esphome:
+  name: power-sensor
+  friendly_name: power-sensor
+  min_version: 2025.8.0
+
+esp32:
+  board: esp32-s3-devkitc-1
+  framework:
+    type: esp-idf
+    version: 5.4.2
+
+psram:
+  mode: octal
+  speed: 80MHz
+
+# Enable logging
+logger:
+  level: DEBUG
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "Fn9MkXYOAdXO+5JVXBEl8glOsjHhgyviJBiP/D1sSsc="
+
+ota:
+  - platform: esphome
+    password: "51d750a38656c0ddc579cd630b8a3a05"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Power-Sensor Fallback Hotspot"
+    password: "HsscHi4sWoEM"
+
+captive_portal:
+  
+
+
+switch:
+  - platform: gpio
+    pin: GPIO40
+    name: "Power Sensor V&C"
+    id: power_sensor_switch
+
+# --------------------------------------
+# -            SENSORS                 -
+# --------------------------------------
+
+sensor:
+  - platform: pulse_counter
+    pin: GPIO41
+    name: "Voltaje"
+    update_interval: 10s
